@@ -1,10 +1,16 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { ClientProviders } from '@/components/ClientProviders';
 
 export const metadata: Metadata = {
   title: "Sameer's Wholesale | B2B Electronics Direct Portal",
   description: 'Premium wholesale electronics catalog powered by Next.js and Supabase. Instant SKU rfp builder.',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

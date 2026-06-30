@@ -46,7 +46,7 @@ export function AppHeader() {
           onClick={() => setFilterMenuOpen(true)}
           aria-label="Open filter menu"
         >
-          ☰ <span className="burger-label">Menu</span>
+          ☰
         </button>
 
         <Link href="/products" className="brand-logo">
