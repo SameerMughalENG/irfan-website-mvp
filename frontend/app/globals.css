@@ -62,20 +62,175 @@ body {
   max-width: 100vw;
 }
 
-/* Header */
-.main-header {
-  background-color: var(--bg-header);
-  border-bottom: 1px solid var(--border-light);
-  padding: 0.85rem 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Header - 3-Band UK Retailer Architecture */
+.main-header-wrapper {
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(12px);
+  background-color: #fff;
   box-shadow: var(--shadow-sm);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+}
+
+/* Band 1: UK Top Strip */
+.uk-top-strip {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.uk-top-strip-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.strip-left, .strip-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.strip-divider {
+  color: #64748b;
+}
+
+.strip-link {
+  background: none;
+  border: none;
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.strip-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Band 2: Main Banner */
+.uk-main-banner {
+  background-color: #ffffff;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.uk-main-banner-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 2rem;
+}
+
+/* Top-Right UK Utility Cluster */
+.uk-utility-cluster {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.uk-utility-item {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+  color: var(--text-main);
+}
+
+.uk-utility-item:hover {
+  background-color: var(--bg-secondary);
+}
+
+.utility-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-bottom: 0.15rem;
+}
+
+.utility-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.utility-basket {
+  background-color: var(--primary-currys);
+  color: #fff;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.utility-basket .utility-label {
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.utility-basket:hover {
+  background-color: var(--accent-blue);
+}
+
+/* Band 3: Category Bar */
+.uk-category-bar {
+  background-color: #001e62;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.uk-category-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.uk-category-bar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.category-tab-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.category-tab-btn:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.category-tab-btn.active {
+  color: #fff;
+  border-bottom-color: #ffda00; /* UK Retailer Accent Yellow */
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 .header-left {
@@ -635,8 +790,8 @@ body {
 
 .detail-split-layout {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 3.5rem;
+  grid-template-columns: 7fr 5fr;
+  gap: 2.5rem;
   align-items: start;
 }
 
@@ -647,7 +802,10 @@ body {
   padding: 2rem;
   box-shadow: var(--shadow-sm);
   position: sticky;
-  top: 5.5rem;
+  top: 140px;
+  align-self: start;
+  height: fit-content;
+  z-index: 10;
 }
 
 .detail-image-wrap {
@@ -1343,17 +1501,25 @@ body {
   .catalog-wrapper {
     grid-template-columns: 1fr;
   }
+  /* Retain side-by-side 2-column layout on medium viewports (768px - 1024px) just like Currys UK */
   .detail-split-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: 7fr 5fr;
+    gap: 1.5rem;
+  }
+  .detail-image-panel {
+    padding: 1.25rem;
+    top: 130px;
   }
 }
 
 @media (max-width: 768px) {
-  .main-header {
-    padding: 0.65rem 0.75rem;
+  .uk-top-strip {
+    display: none; /* Hide top info strip on mobile to save space */
+  }
+  .uk-main-banner-inner {
+    padding: 0 1rem;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.75rem;
   }
   .header-left {
     flex: 1;
@@ -1376,6 +1542,21 @@ body {
     max-width: 100%;
     width: 100%;
   }
+  .uk-utility-cluster {
+    gap: 0.75rem;
+  }
+  .utility-basket {
+    padding: 0.35rem 0.65rem;
+  }
+  /* Stack PDP layout only on mobile (<768px) */
+  .detail-split-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .detail-image-panel {
+    position: relative;
+    top: 0;
+  }
   .main-content {
     padding: 1.25rem 0.75rem 3rem;
   }
@@ -1387,12 +1568,6 @@ body {
   }
   .tiers-grid {
     grid-template-columns: 1fr;
-  }
-  .quote-text {
-    display: none;
-  }
-  .quote-draft-btn {
-    padding: 0.5rem 0.75rem;
   }
 }
 
