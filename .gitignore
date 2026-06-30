@@ -1,0 +1,11 @@
+.antigravity/
+instructions/
+mock-data/
+backend/config.json
+.env
+.env.local
+node_modules/
+.next/
+dist/
+*.csv
+*.xlsx
