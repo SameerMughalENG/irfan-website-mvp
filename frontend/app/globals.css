@@ -1164,12 +1164,12 @@ body {
 }
 
 /* ==========================================================================
-   Slide-out Filter Menu Drawer (Mobile)
+   Slide-out Filter Menu Drawer (Mobile - Solid Currys/Argos High Contrast Style)
    ========================================================================== */
 .filter-drawer-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 15, 45, 0.55);
+  background-color: rgba(0, 15, 45, 0.75);
   backdrop-filter: blur(4px);
   z-index: 9998;
   display: flex;
@@ -1178,13 +1178,13 @@ body {
 }
 
 .filter-drawer {
-  background: var(--card-bg);
-  width: 100%;
+  background-color: #ffffff;
+  width: 88vw;
   max-width: 380px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 10px 0 30px rgba(0,0,0,0.25);
+  box-shadow: 15px 0 40px rgba(0, 0, 0, 0.4);
   z-index: 9999;
   animation: slideRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1196,38 +1196,123 @@ body {
 
 .filter-drawer-header {
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 2px solid #001e62;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--surface-bg);
+  background-color: #001e62;
+  color: #ffffff;
 }
 
 .filter-drawer-header h3 {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  color: var(--primary-navy);
+  color: #ffffff;
+  margin: 0;
 }
 
 .filter-drawer-subtitle {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 0.15rem;
+  font-size: 0.85rem;
+  color: #93c5fd;
+  margin-top: 0.2rem;
+  font-weight: 600;
+}
+
+.drawer-close-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 1.4rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .filter-drawer-body {
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
+  background-color: #ffffff;
+}
+
+.filter-drawer-body .sidebar-section {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.filter-drawer-body .sidebar-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-drawer-body .filter-input,
+.filter-drawer-body .filter-select {
+  background-color: #ffffff;
+  border: 2px solid #94a3b8;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.filter-drawer-body .filter-pill {
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  font-weight: 600;
+  padding: 0.5rem 0.85rem;
+  border-radius: 20px;
+  margin: 0.2rem;
+  cursor: pointer;
+}
+
+.filter-drawer-body .filter-pill.active {
+  background-color: #001e62;
+  border-color: #001e62;
+  color: #ffffff;
 }
 
 .filter-drawer-footer {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid var(--border-color);
+  padding: 1.25rem 1.5rem;
+  border-top: 2px solid #e2e8f0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  background: var(--surface-bg);
+  background-color: #f8fafc;
+}
+
+.filter-drawer-footer .reset-filters-btn {
+  background-color: #e2e8f0;
+  color: #0f172a;
+  font-weight: 700;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-drawer-footer .submit-quote-btn {
+  background-color: #0284c7;
+  color: #ffffff;
+  font-weight: 800;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  flex: 1;
+  cursor: pointer;
+  text-align: center;
 }
 
 .clear-search-btn {

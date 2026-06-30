@@ -10,7 +10,7 @@ export function AppHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const { totalItems, setDrawerOpen: setQuoteDrawerOpen } = useQuote();
-  const { searchQuery, setSearchQuery, setFilterMenuOpen } = useSearch();
+  const { searchQuery, setSearchQuery, isFilterMenuOpen, setFilterMenuOpen } = useSearch();
 
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -43,8 +43,8 @@ export function AppHeader() {
       <div className="header-left">
         <button 
           className="mobile-burger-btn"
-          onClick={() => setFilterMenuOpen(true)}
-          aria-label="Open filter menu"
+          onClick={() => setFilterMenuOpen(!isFilterMenuOpen)}
+          aria-label="Toggle filter menu"
         >
           ☰
         </button>

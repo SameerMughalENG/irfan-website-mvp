@@ -34,6 +34,7 @@ export function CatalogClient({ initialProducts, categories, brands }: CatalogCl
     setSelectedBrand,
     sortBy,
     setSortBy,
+    isFilterMenuOpen,
     setFilterMenuOpen,
     resetFilters,
   } = useSearch();
@@ -127,7 +128,7 @@ export function CatalogClient({ initialProducts, categories, brands }: CatalogCl
       <div className="catalog-main">
         {/* Mobile Toolbar Trigger */}
         <div className="mobile-filter-toolbar">
-          <button className="mobile-open-menu-btn" onClick={() => setFilterMenuOpen(true)}>
+          <button className="mobile-open-menu-btn" onClick={() => setFilterMenuOpen(!isFilterMenuOpen)}>
             ☰ Filter Menu &amp; Categories
             {(selectedCategory !== 'ALL' || selectedBrand !== 'ALL') && (
               <span className="filter-active-dot">●</span>
