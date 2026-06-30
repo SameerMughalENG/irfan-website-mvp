@@ -3,19 +3,10 @@ import Link from 'next/link';
 
 export const revalidate = 0; // Ensure fresh data on each request
 
-interface ProductRaw {
-  id: string | number;
-  name: string;
-  slug: string;
-  price: number;
-  brand?: { name: string } | { name: string }[] | null;
-  category?: { name: string } | { name: string }[] | null;
-}
-
 export default async function ProductsPage() {
   const { data: rawProducts, error } = await supabase
     .from('Products')
-    .select('id, name, slug, price, brand:Brands(name), category:Categories(name)')
+    .select('id, name, slug, price, main_image_url, brand:Brands(name), category:Categories(name)')
     .limit(24);
 
   if (error) {
@@ -34,6 +25,7 @@ export default async function ProductsPage() {
       priceFormatted: typeof p.price === 'number' ? `$${p.price.toFixed(2)}` : `$${p.price}`,
       brandName: brandObj?.name ? String(brandObj.name) : 'Generic Brand',
       categoryName: categoryObj?.name ? String(categoryObj.name) : 'Electronics',
+      imageUrl: p.main_image_url || null,
     };
   });
 
@@ -53,6 +45,17 @@ export default async function ProductsPage() {
           {products.map((prod) => (
             <Link key={prod.id} href={`/product/${prod.slug}`} className="product-card">
               <div>
+                <div className="card-image-wrap">
+                  {prod.imageUrl ? (
+                    <img
+                      src={prod.imageUrl}
+                      alt={prod.name}
+                      className="card-image"
+                    />
+                  ) : (
+                    <div className="card-image-placeholder">No Image</div>
+                  )}
+                </div>
                 <div className="card-header">
                   <span className="category-tag">{prod.categoryName}</span>
                   <span className="brand-name">{prod.brandName}</span>

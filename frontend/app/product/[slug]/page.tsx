@@ -14,7 +14,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   const { data: rawProduct, error } = await supabase
     .from('Products')
-    .select('id, name, slug, price, description, brand:Brands(name), category:Categories(name)')
+    .select('id, name, slug, price, description, main_image_url, brand:Brands(name), category:Categories(name)')
     .eq('slug', slug)
     .single();
 
@@ -33,6 +33,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     description: String(rawProduct.description || 'No detailed technical specification available.'),
     brandName: brandObj?.name ? String(brandObj.name) : 'Generic Brand',
     categoryName: categoryObj?.name ? String(categoryObj.name) : 'Electronics',
+    imageUrl: rawProduct.main_image_url || null,
   };
 
   return (
@@ -42,6 +43,16 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </Link>
 
       <div className="detail-card">
+        {product.imageUrl && (
+          <div className="detail-image-wrap">
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="detail-image"
+            />
+          </div>
+        )}
+
         <div className="detail-meta">
           <span className="category-tag">{product.categoryName}</span>
           <span className="brand-badge" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-main)' }}>
