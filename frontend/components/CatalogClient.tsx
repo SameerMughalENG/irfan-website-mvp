@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { useQuote } from '@/context/QuoteContext';
+import { useSearch } from '@/context/SearchContext';
+import { FilterDrawer } from '@/components/FilterDrawer';
 
 interface Product {
   id: string;
@@ -23,10 +25,18 @@ interface CatalogClientProps {
 
 export function CatalogClient({ initialProducts, categories, brands }: CatalogClientProps) {
   const { addItem } = useQuote();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
-  const [selectedBrand, setSelectedBrand] = useState<string>('ALL');
-  const [sortBy, setSortBy] = useState<string>('default');
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    selectedBrand,
+    setSelectedBrand,
+    sortBy,
+    setSortBy,
+    setFilterMenuOpen,
+    resetFilters,
+  } = useSearch();
 
   const filteredProducts = useMemo(() => {
     return initialProducts.filter((p) => {
@@ -47,21 +57,19 @@ export function CatalogClient({ initialProducts, categories, brands }: CatalogCl
     });
   }, [initialProducts, searchQuery, selectedCategory, selectedBrand, sortBy]);
 
-  const resetFilters = () => {
-    setSearchQuery('');
-    setSelectedCategory('ALL');
-    setSelectedBrand('ALL');
-    setSortBy('default');
-  };
-
   return (
     <div className="catalog-wrapper">
-      {/* Left Sidebar Filters */}
-      <aside className="catalog-sidebar">
+      <FilterDrawer 
+        categories={categories} 
+        brands={brands} 
+        totalResults={filteredProducts.length} 
+      />
+
+      {/* Desktop Left Sidebar Filters */}
+      <aside className="catalog-sidebar desktop-sidebar">
         <div className="sidebar-section">
-          <h3 className="sidebar-title">Search SKU / Keyword</h3>
+          <h3 className="sidebar-title">Search Keyword / SKU</h3>
           <input 
-            id="catalog-search-input"
             type="text" 
             className="filter-input"
             placeholder="Search Apple, OLED, 4K..."
@@ -117,6 +125,22 @@ export function CatalogClient({ initialProducts, categories, brands }: CatalogCl
 
       {/* Right Product Grid Area */}
       <div className="catalog-main">
+        {/* Mobile Toolbar Trigger */}
+        <div className="mobile-filter-toolbar">
+          <button className="mobile-open-menu-btn" onClick={() => setFilterMenuOpen(true)}>
+            ☰ Filter Menu &amp; Categories
+            {(selectedCategory !== 'ALL' || selectedBrand !== 'ALL') && (
+              <span className="filter-active-dot">●</span>
+            )}
+          </button>
+          {searchQuery && (
+            <div className="mobile-active-search">
+              <span>Keyword: &ldquo;{searchQuery}&rdquo;</span>
+              <button onClick={() => setSearchQuery('')}>&times;</button>
+            </div>
+          )}
+        </div>
+
         <div className="grid-toolbar">
           <div className="results-count">
             Showing <strong>{filteredProducts.length}</strong> of <strong>{initialProducts.length}</strong> wholesale items
@@ -184,7 +208,7 @@ export function CatalogClient({ initialProducts, categories, brands }: CatalogCl
                         slug: prod.slug,
                         priceFormatted: prod.priceFormatted,
                         imageUrl: prod.imageUrl
-                      }, 10)} // Default wholesale batch quantity 10
+                      }, 10)}
                     >
                       + Add 10 to Quote
                     </button>
