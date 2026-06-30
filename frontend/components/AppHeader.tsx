@@ -105,7 +105,7 @@ export function AppHeader() {
             <div className="header-search-bar">
               <input 
                 type="text" 
-                placeholder={isTradeMode ? "Search wholesale SKU, pallet volume, or brand..." : "Search single retail unit, brand, or model..."}
+                placeholder={isTradeMode ? "Search wholesale SKU, volume, or brand..." : "Search products, brands, or models..."}
                 value={searchQuery}
                 onChange={handleSearchChange}
               />

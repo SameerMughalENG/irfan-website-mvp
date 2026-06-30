@@ -1516,37 +1516,74 @@ body {
   .uk-top-strip {
     display: none; /* Hide top info strip on mobile to save space */
   }
+  .uk-main-banner {
+    padding: 0.6rem 0;
+  }
   .uk-main-banner-inner {
-    padding: 0 1rem;
+    padding: 0 0.85rem;
+    display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.6rem;
   }
   .header-left {
-    flex: 1;
-    min-width: 0;
+    order: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 0 1 auto;
+    max-width: 62%;
   }
   .brand-logo {
-    gap: 0.25rem;
-    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    flex-wrap: nowrap;
   }
   .brand-primary, .brand-secondary {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    white-space: nowrap;
   }
   .brand-badge {
     font-size: 0.55rem;
-    padding: 0.15rem 0.35rem;
+    padding: 0.12rem 0.3rem;
     margin-left: 0.2rem;
-  }
-  .header-center {
-    order: 3;
-    max-width: 100%;
-    width: 100%;
+    white-space: nowrap;
   }
   .uk-utility-cluster {
-    gap: 0.75rem;
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+  }
+  /* On mobile (<768px), hide text label for non-basket utility items (like Account) so only clean icon shows */
+  .uk-utility-item:not(.utility-basket) .utility-label {
+    display: none;
+  }
+  .uk-utility-item:not(.utility-basket) {
+    padding: 0.35rem;
+    font-size: 1.25rem;
   }
   .utility-basket {
-    padding: 0.35rem 0.65rem;
+    padding: 0.4rem 0.65rem;
+  }
+  .utility-basket .utility-label {
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+  /* Force search bar onto Row 2 across full width */
+  .header-center {
+    order: 3;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 0.25rem;
+  }
+  .header-search-bar input {
+    padding: 0.5rem 0.85rem 0.5rem 2.2rem;
+    font-size: 0.85rem;
   }
   /* Stack PDP layout only on mobile (<768px) */
   .detail-split-layout {
@@ -1573,7 +1610,7 @@ body {
 
 @media (max-width: 480px) {
   .brand-primary, .brand-secondary {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
   .brand-badge {
     font-size: 0.5rem;
@@ -1581,7 +1618,10 @@ body {
   }
   .mobile-open-menu-btn {
     font-size: 0.8rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+  .utility-basket .utility-label {
+    font-size: 0.75rem;
   }
 }
 
