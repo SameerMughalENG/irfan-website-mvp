@@ -14,8 +14,8 @@ interface ProductRaw {
 
 export default async function ProductsPage() {
   const { data: rawProducts, error } = await supabase
-    .from('products')
-    .select('id, name, slug, price, brand:brands(name), category:categories(name)')
+    .from('Products')
+    .select('id, name, slug, price, brand:Brands(name), category:Categories(name)')
     .limit(24);
 
   if (error) {

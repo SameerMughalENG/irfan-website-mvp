@@ -13,8 +13,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const { slug } = resolvedParams;
 
   const { data: rawProduct, error } = await supabase
-    .from('products')
-    .select('id, name, slug, price, description, brand:brands(name), category:categories(name)')
+    .from('Products')
+    .select('id, name, slug, price, description, brand:Brands(name), category:Categories(name)')
     .eq('slug', slug)
     .single();
 
