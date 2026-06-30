@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Link from 'next/link';
+import { ClientProviders } from '@/components/ClientProviders';
 
 export const metadata: Metadata = {
-  title: 'Irfan Electronics MVP | Wholesale Storefront',
-  description: 'Clean, production-lean wholesale electronics catalog powered by Next.js and Supabase.',
+  title: "Sameer's Wholesale | B2B Electronics Direct Portal",
+  description: 'Premium wholesale electronics catalog powered by Next.js and Supabase. Instant SKU rfp builder.',
 };
 
 export default function RootLayout({
@@ -14,21 +14,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+      </head>
       <body>
-        <div className="app-container">
-          <header className="main-header">
-            <Link href="/products" className="brand-logo">
-              IRFAN ELECTRONICS
-              <span className="brand-badge">Wholesale MVP</span>
-            </Link>
-            <nav className="nav-links">
-              <Link href="/products" className="nav-link">Catalog</Link>
-            </nav>
-          </header>
-          <main className="main-content">
-            {children}
-          </main>
-        </div>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
     </html>
   );

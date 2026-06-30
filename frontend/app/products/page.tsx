@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import Link from 'next/link';
+import { CatalogClient } from '@/components/CatalogClient';
 
 export const revalidate = 0; // Ensure fresh data on each request
 
@@ -7,7 +7,8 @@ export default async function ProductsPage() {
   const { data: rawProducts, error } = await supabase
     .from('Products')
     .select('id, name, slug, price, main_image_url, brand:Brands(name), category:Categories(name)')
-    .limit(24);
+    .order('id', { ascending: true })
+    .limit(100);
 
   if (error) {
     console.error('Error fetching products:', error);
@@ -17,59 +18,38 @@ export default async function ProductsPage() {
   const products = (rawProducts || []).map((p: any) => {
     const brandObj = Array.isArray(p.brand) ? p.brand[0] : p.brand;
     const categoryObj = Array.isArray(p.category) ? p.category[0] : p.category;
+    const priceRaw = typeof p.price === 'number' ? p.price : parseFloat(String(p.price || '0'));
 
     return {
       id: String(p.id),
       name: String(p.name || 'Unnamed Product'),
       slug: String(p.slug || ''),
-      priceFormatted: typeof p.price === 'number' ? `$${p.price.toFixed(2)}` : `$${p.price}`,
+      priceRaw,
+      priceFormatted: `$${priceRaw.toFixed(2)}`,
       brandName: brandObj?.name ? String(brandObj.name) : 'Generic Brand',
       categoryName: categoryObj?.name ? String(categoryObj.name) : 'Electronics',
       imageUrl: p.main_image_url || null,
     };
   });
 
+  const categories = Array.from(new Set(products.map((p) => p.categoryName))).filter(Boolean).sort();
+  const brands = Array.from(new Set(products.map((p) => p.brandName))).filter(Boolean).sort();
+
   return (
     <section>
       <header className="catalog-header">
-        <h1 className="catalog-title">Wholesale Product Catalog</h1>
-        <p className="catalog-subtitle">CURRYS UK DIRECTIVE // SHOWING MAX 24 ITEMS PER FETCH</p>
+        <div className="catalog-header-text">
+          <span className="badge-pill">B2B WHOLESALE DIRECTORY</span>
+          <h1 className="catalog-title">Enterprise Electronics Catalog</h1>
+          <p className="catalog-subtitle">Instant volume quotes, real-time inventory verification, and Sameer's Direct dispatch.</p>
+        </div>
       </header>
 
-      {products.length === 0 ? (
-        <div className="empty-state">
-          <p>No products found in the database catalog.</p>
-        </div>
-      ) : (
-        <div className="product-grid">
-          {products.map((prod) => (
-            <Link key={prod.id} href={`/product/${prod.slug}`} className="product-card">
-              <div>
-                <div className="card-image-wrap">
-                  {prod.imageUrl ? (
-                    <img
-                      src={prod.imageUrl}
-                      alt={prod.name}
-                      className="card-image"
-                    />
-                  ) : (
-                    <div className="card-image-placeholder">No Image</div>
-                  )}
-                </div>
-                <div className="card-header">
-                  <span className="category-tag">{prod.categoryName}</span>
-                  <span className="brand-name">{prod.brandName}</span>
-                </div>
-                <h2 className="product-name">{prod.name}</h2>
-              </div>
-              <div className="card-footer">
-                <span className="product-price">{prod.priceFormatted}</span>
-                <span className="view-btn">View Specs &rarr;</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+      <CatalogClient 
+        initialProducts={products} 
+        categories={categories} 
+        brands={brands} 
+      />
     </section>
   );
 }

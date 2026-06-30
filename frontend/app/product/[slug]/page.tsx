@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ProductDetailClient } from '@/components/ProductDetailClient';
 
 export const revalidate = 0;
 
@@ -14,7 +15,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
   const { data: rawProduct, error } = await supabase
     .from('Products')
-    .select('id, name, slug, price, description, main_image_url, brand:Brands(name), category:Categories(name)')
+    .select('id, name, slug, price, stock_quantity, description, main_image_url, brand:Brands(name), category:Categories(name)')
     .eq('slug', slug)
     .single();
 
@@ -26,52 +27,45 @@ export default async function ProductDetailPage({ params }: PageProps) {
   // Data Sanitization
   const brandObj = Array.isArray(rawProduct.brand) ? rawProduct.brand[0] : rawProduct.brand;
   const categoryObj = Array.isArray(rawProduct.category) ? rawProduct.category[0] : rawProduct.category;
+  const priceRaw = typeof rawProduct.price === 'number' ? rawProduct.price : parseFloat(String(rawProduct.price || '0'));
 
   const product = {
+    id: String(rawProduct.id),
     name: String(rawProduct.name || 'Unnamed Product'),
-    priceFormatted: typeof rawProduct.price === 'number' ? `$${rawProduct.price.toFixed(2)}` : `$${rawProduct.price}`,
+    slug: String(rawProduct.slug),
+    priceRaw,
+    priceFormatted: `$${priceRaw.toFixed(2)}`,
     description: String(rawProduct.description || 'No detailed technical specification available.'),
     brandName: brandObj?.name ? String(brandObj.name) : 'Generic Brand',
     categoryName: categoryObj?.name ? String(categoryObj.name) : 'Electronics',
+    stockQty: typeof rawProduct.stock_quantity === 'number' ? rawProduct.stock_quantity : 50,
     imageUrl: rawProduct.main_image_url || null,
   };
 
   return (
     <article className="detail-container">
-      <Link href="/products" className="back-link">
-        &larr; Back to Catalog
-      </Link>
+      <nav className="breadcrumb-nav">
+        <Link href="/products" className="back-link">
+          &larr; Back to Wholesale Catalog
+        </Link>
+        <span className="breadcrumb-divider">/</span>
+        <span className="breadcrumb-item">{product.categoryName}</span>
+        <span className="breadcrumb-divider">/</span>
+        <span className="breadcrumb-current">{product.name}</span>
+      </nav>
 
-      <div className="detail-card">
-        {product.imageUrl && (
-          <div className="detail-image-wrap">
-            <img
-              src={product.imageUrl}
-              alt={product.name}
-              className="detail-image"
-            />
-          </div>
-        )}
-
-        <div className="detail-meta">
-          <span className="category-tag">{product.categoryName}</span>
-          <span className="brand-badge" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border)', color: 'var(--text-main)' }}>
-            BRAND: {product.brandName}
-          </span>
-        </div>
-
-        <h1 className="detail-title">{product.name}</h1>
-
-        <div className="detail-price-bar">
-          <span className="price-label">Wholesale Unit Price</span>
-          <span className="detail-price">{product.priceFormatted}</span>
-        </div>
-
-        <section className="specs-section">
-          <h2 className="specs-title">Technical Specification &amp; Description</h2>
-          <div className="detail-description">{product.description}</div>
-        </section>
-      </div>
+      <ProductDetailClient 
+        id={product.id}
+        name={product.name}
+        slug={product.slug}
+        priceRaw={product.priceRaw}
+        priceFormatted={product.priceFormatted}
+        description={product.description}
+        brandName={product.brandName}
+        categoryName={product.categoryName}
+        stockQty={product.stockQty}
+        imageUrl={product.imageUrl}
+      />
     </article>
   );
 }
