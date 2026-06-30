@@ -25,7 +25,7 @@ export default async function ProductsPage() {
       name: String(p.name || 'Unnamed Product'),
       slug: String(p.slug || ''),
       priceRaw,
-      priceFormatted: `$${priceRaw.toFixed(2)}`,
+      priceFormatted: `£${priceRaw.toFixed(2)}`,
       brandName: brandObj?.name ? String(brandObj.name) : 'Generic Brand',
       categoryName: categoryObj?.name ? String(categoryObj.name) : 'Electronics',
       imageUrl: p.main_image_url || null,

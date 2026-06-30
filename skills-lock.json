@@ -12,6 +12,18 @@
       "sourceType": "github",
       "skillPath": "skills/supabase-postgres-best-practices/SKILL.md",
       "computedHash": "3639bed1f40b3fbadae79fee631c42c89b2d1f5c30b05d5aa3cca06422a6bbbc"
+    },
+    "ui-ux-polish": {
+      "source": "oakoss/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ui-ux-polish/SKILL.md",
+      "computedHash": "5663336029837c6720888fb7d5b2135c97a3e313a8df461f89074c959dee674e"
+    },
+    "ux-designer": {
+      "source": "oakoss/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/ux-designer/SKILL.md",
+      "computedHash": "340aaf746e63abc16923e1e297b60ed3fb38bd82e8ebc360940aad4be7adcd38"
     }
   }
 }

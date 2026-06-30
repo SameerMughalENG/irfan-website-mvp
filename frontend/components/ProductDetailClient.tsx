@@ -77,7 +77,7 @@ export function ProductDetailClient({
 
         <div className="pricing-box">
           <div className="price-main">
-            <span className="detail-price">${discountedUnit.toFixed(2)}</span>
+            <span className="detail-price">£{discountedUnit.toFixed(2)}</span>
             <span className="price-sub">/ unit (Excl. VAT)</span>
           </div>
           {unitDiscount > 0 && (
@@ -93,15 +93,15 @@ export function ProductDetailClient({
           <div className="tiers-grid">
             <div className={`tier-card ${quantity < 50 ? 'active' : ''}`} onClick={() => setQuantity(10)}>
               <span className="tier-range">10 - 49 units</span>
-              <span className="tier-price">${priceRaw.toFixed(2)} / u</span>
+              <span className="tier-price">£{priceRaw.toFixed(2)} / u</span>
             </div>
             <div className={`tier-card ${quantity >= 50 && quantity < 100 ? 'active' : ''}`} onClick={() => setQuantity(50)}>
               <span className="tier-range">50 - 99 units</span>
-              <span className="tier-price">${(priceRaw * 0.92).toFixed(2)} / u</span>
+              <span className="tier-price">£{(priceRaw * 0.92).toFixed(2)} / u</span>
             </div>
             <div className={`tier-card ${quantity >= 100 ? 'active' : ''}`} onClick={() => setQuantity(100)}>
               <span className="tier-range">100+ units</span>
-              <span className="tier-price">${(priceRaw * 0.85).toFixed(2)} / u</span>
+              <span className="tier-price">£{(priceRaw * 0.85).toFixed(2)} / u</span>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@ export function ProductDetailClient({
 
           <div className="total-summary">
             <span>Total Quote Value:</span>
-            <strong>${totalPrice.toFixed(2)}</strong>
+            <strong>£{totalPrice.toFixed(2)}</strong>
           </div>
 
           <button 
@@ -133,7 +133,7 @@ export function ProductDetailClient({
               id,
               name,
               slug,
-              priceFormatted: `$${discountedUnit.toFixed(2)}`,
+              priceFormatted: `£${discountedUnit.toFixed(2)}`,
               imageUrl
             }, quantity)}
           >

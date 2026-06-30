@@ -34,7 +34,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     name: String(rawProduct.name || 'Unnamed Product'),
     slug: String(rawProduct.slug),
     priceRaw,
-    priceFormatted: `$${priceRaw.toFixed(2)}`,
+    priceFormatted: `£${priceRaw.toFixed(2)}`,
     description: String(rawProduct.description || 'No detailed technical specification available.'),
     brandName: brandObj?.name ? String(brandObj.name) : 'Generic Brand',
     categoryName: categoryObj?.name ? String(categoryObj.name) : 'Electronics',
