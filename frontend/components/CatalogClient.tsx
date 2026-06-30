@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import Link from 'next/link';
 import { useQuote } from '@/context/QuoteContext';
 import { useSearch } from '@/context/SearchContext';
+import { useTrade } from '@/context/TradeContext';
 import { FilterDrawer } from '@/components/FilterDrawer';
 
 interface Product {
@@ -25,6 +26,7 @@ interface CatalogClientProps {
 
 export function CatalogClient({ initialProducts, categories, brands }: CatalogClientProps) {
   const { addItem } = useQuote();
+  const { isTradeMode, addRetailItem } = useTrade();
   const {
     searchQuery,
     setSearchQuery,
@@ -195,26 +197,48 @@ export function CatalogClient({ initialProducts, categories, brands }: CatalogCl
 
                   <div className="card-pricing">
                     <div className="price-info">
-                      <span className="price-label">Wholesale Unit Price</span>
-                      <span className="product-price">{prod.priceFormatted}</span>
+                      <span className="price-label">
+                        {isTradeMode ? 'Wholesale Volume Price (Ex. VAT)' : 'Retail Price (Inc. VAT)'}
+                      </span>
+                      <span className="product-price">
+                        {isTradeMode 
+                          ? `From £${(prod.priceRaw * 0.88).toFixed(2)} ex. VAT` 
+                          : `£${prod.priceRaw.toFixed(2)}`}
+                      </span>
                     </div>
                   </div>
 
                   <div className="card-actions">
-                    <button 
-                      className="add-quote-btn"
-                      onClick={() => addItem({
-                        id: prod.id,
-                        name: prod.name,
-                        slug: prod.slug,
-                        priceFormatted: prod.priceFormatted,
-                        imageUrl: prod.imageUrl
-                      }, 10)}
-                    >
-                      + Add 10 to Quote
-                    </button>
+                    {isTradeMode ? (
+                      <button 
+                        className="add-quote-btn"
+                        onClick={() => addItem({
+                          id: prod.id,
+                          name: prod.name,
+                          slug: prod.slug,
+                          priceFormatted: `£${(prod.priceRaw * 0.88).toFixed(2)} ex. VAT`,
+                          imageUrl: prod.imageUrl
+                        }, 10)}
+                      >
+                        + Add 10 to Quote
+                      </button>
+                    ) : (
+                      <button 
+                        className="add-quote-btn retail-add-btn"
+                        onClick={() => addRetailItem({
+                          id: prod.id,
+                          name: prod.name,
+                          slug: prod.slug,
+                          priceFormatted: `£${prod.priceRaw.toFixed(2)}`,
+                          priceRaw: prod.priceRaw,
+                          imageUrl: prod.imageUrl
+                        }, 1)}
+                      >
+                        🛒 Add to Basket
+                      </button>
+                    )}
                     <Link href={`/product/${prod.slug}`} className="view-btn">
-                      Specs &rarr;
+                      View &rarr;
                     </Link>
                   </div>
                 </div>

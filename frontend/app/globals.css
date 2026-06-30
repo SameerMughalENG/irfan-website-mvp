@@ -1585,3 +1585,481 @@ body {
   }
 }
 
+/* ==========================================================================
+   TRADE MODAL & MODE SWITCH STYLES
+   ========================================================================== */
+.trade-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(10, 15, 30, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.trade-modal-box {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPopIn {
+  0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.trade-modal-header {
+  background: var(--navy-dark);
+  color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trade-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.trade-modal-close {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.trade-modal-body {
+  padding: 1.75rem;
+}
+
+.trade-intro {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.quick-demo-section {
+  background: #f8fafc;
+  border: 2px dashed #3b82f6;
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.demo-banner-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}
+
+.quick-demo-btn {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition: all 0.2s;
+}
+
+.quick-demo-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.demo-subtext {
+  display: block;
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+}
+
+.modal-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 1.5rem 0;
+}
+
+.modal-divider::before, .modal-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-divider span {
+  padding: 0 10px;
+}
+
+.trade-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.trade-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy-dark);
+  margin-bottom: 0.35rem;
+}
+
+.trade-form input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.trade-submit-btn {
+  background: var(--navy-dark);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem;
+  font-weight: 700;
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.trade-verified-view {
+  text-align: center;
+}
+
+.verified-badge-banner {
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 700;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.account-details-card {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: left;
+  font-size: 0.88rem;
+  line-height: 1.8;
+  margin: 1rem 0 1.5rem;
+}
+
+.modal-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.switch-mode-btn {
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.logout-trade-btn {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mode-pill {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.trade-portal-highlight {
+  color: #fbbf24 !important;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   CURRYS ACCORDION & DEEP SPECS
+   ========================================================================== */
+.deep-specs-container {
+  grid-column: 1 / -1;
+  margin-top: 2.5rem;
+}
+
+.currys-accordion-wrapper {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.accordion-tab-bar {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  background: #f8fafc;
+  overflow-x: auto;
+}
+
+.acc-tab-btn {
+  flex: 1;
+  min-width: 180px;
+  padding: 1rem 1.25rem;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.acc-tab-btn:hover {
+  color: var(--navy-dark);
+  background: #f1f5f9;
+}
+
+.acc-tab-btn.active {
+  color: var(--navy-dark);
+  border-bottom-color: #2563eb;
+  background: #ffffff;
+}
+
+.accordion-content-panel {
+  padding: 2rem;
+}
+
+.ai-summary-card {
+  background: linear-gradient(135f, #eff6ff, #f8fafc);
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.ai-badge {
+  display: inline-block;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.features-header {
+  font-size: 1.1rem;
+  color: var(--navy-dark);
+  margin-bottom: 1rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.feature-item-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.feat-check {
+  color: #10b981;
+  font-weight: 800;
+}
+
+.specs-main-title {
+  font-size: 1.25rem;
+  color: var(--navy-dark);
+  margin-bottom: 1.5rem;
+}
+
+.spec-category-section {
+  margin-bottom: 2rem;
+}
+
+.spec-category-header {
+  background: #f1f5f9;
+  color: var(--navy-dark);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.currys-spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.currys-spec-table tr {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.currys-spec-table th.spec-key {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  width: 38%;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.currys-spec-table td.spec-val {
+  padding: 0.75rem 1rem;
+  color: #0f172a;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.reviews-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  align-items: center;
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+}
+
+.overall-score-box {
+  text-align: center;
+}
+
+.score-num {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.score-stars {
+  color: #f59e0b;
+  font-size: 1.2rem;
+  margin: 0.3rem 0;
+}
+
+.dimension-scores {
+  flex: 1;
+  min-width: 260px;
+}
+
+.dim-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.88rem;
+}
+
+.dim-bar {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dim-fill {
+  height: 100%;
+  background: #10b981;
+}
+
+.sample-reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.review-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.review-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.verified-trade-tag {
+  color: #059669;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.delivery-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.deliv-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.25rem;
+}
+
+.deliv-card h4 {
+  color: var(--navy-dark);
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.retail-add-btn {
+  background-color: #059669 !important;
+}
+
+.retail-checkout-btn {
+  background-color: #059669 !important;
+}
+
+

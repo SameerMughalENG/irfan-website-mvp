@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useQuote } from '@/context/QuoteContext';
 import { useSearch } from '@/context/SearchContext';
+import { useTrade } from '@/context/TradeContext';
 
 export function AppHeader() {
   const router = useRouter();
   const pathname = usePathname();
   const { totalItems, setDrawerOpen: setQuoteDrawerOpen } = useQuote();
   const { searchQuery, setSearchQuery, isFilterMenuOpen, setFilterMenuOpen, selectedCategory, setSelectedCategory } = useSearch();
+  const { isTradeMode, setTradeModalOpen, totalRetailItems, setRetailDrawerOpen, tradeAccount } = useTrade();
 
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -63,13 +65,19 @@ export function AppHeader() {
             <span>🛡️ Sameer's B2B Trade Warranty</span>
             <span className="strip-divider">|</span>
             <span>⚡ Free Next-Day UK Pallet Dispatch</span>
+            <span className="strip-divider">|</span>
+            <span className="mode-pill">
+              {isTradeMode ? '🟢 Logged in: Wholesale Trade Mode (Ex. VAT)' : '🛍️ Public Retail Mode (Inc. VAT)'}
+            </span>
           </div>
           <div className="strip-right">
-            <button className="strip-link" onClick={() => alert("Help & Support Center: Live wholesale chat available 8am-6pm GMT.")}>Help & Support</button>
+            <button className="strip-link" onClick={() => alert("Help & Support Center: Live wholesale & consumer support available 8am-6pm GMT.")}>Help & Support</button>
             <span className="strip-divider">|</span>
-            <button className="strip-link" onClick={() => alert("Sameer's Flexpay: 30-day interest-free credit accounts available for verified UK businesses.")}>Flexpay & Credit</button>
+            <button className="strip-link" onClick={() => setTradeModalOpen(true)}>Flexpay & Credit</button>
             <span className="strip-divider">|</span>
-            <button className="strip-link" onClick={() => alert("UK Trade Account Portal: Integrated with Supabase Auth.")}>Trade Portal</button>
+            <button className="strip-link trade-portal-highlight" onClick={() => setTradeModalOpen(true)}>
+              {isTradeMode ? `🏢 Trade Account (${tradeAccount?.companyName || 'Verified'})` : '🔓 Unlock Trade Portal (10+ Units)'}
+            </button>
           </div>
         </div>
       </div>
@@ -88,8 +96,8 @@ export function AppHeader() {
 
             <Link href="/products" className="brand-logo">
               <span className="brand-primary">SAMEER'S</span>
-              <span className="brand-secondary">WHOLESALE</span>
-              <span className="brand-badge">B2B DIRECT</span>
+              <span className="brand-secondary">{isTradeMode ? 'WHOLESALE' : 'DIRECT'}</span>
+              <span className="brand-badge">{isTradeMode ? 'B2B TRADE' : 'RETAIL'}</span>
             </Link>
           </div>
 
@@ -97,7 +105,7 @@ export function AppHeader() {
             <div className="header-search-bar">
               <input 
                 type="text" 
-                placeholder="Search wholesale SKU, brand, or category..." 
+                placeholder={isTradeMode ? "Search wholesale SKU, pallet volume, or brand..." : "Search single retail unit, brand, or model..."}
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -118,29 +126,41 @@ export function AppHeader() {
 
             <button 
               className="uk-utility-item"
-              onClick={() => alert("Supabase Auth / Trade Portal Demo: Login modal functionality ready for next integration phase.")}
+              onClick={() => setTradeModalOpen(true)}
             >
               <span className="utility-icon">👤</span>
-              <span className="utility-label">Account</span>
+              <span className="utility-label">{isTradeMode ? 'Trade Portal' : 'Account'}</span>
             </button>
 
             <button 
               className="uk-utility-item desktop-only"
-              onClick={() => alert("Saved Trade Lists: 0 SKUs currently saved in quick re-order template.")}
+              onClick={() => alert("Saved Lists: Quick re-order templates available for verified accounts.")}
             >
               <span className="utility-icon">♡</span>
               <span className="utility-label">Saved</span>
             </button>
 
-            <button 
-              className="uk-utility-item utility-basket"
-              onClick={() => setQuoteDrawerOpen(true)}
-            >
-              <span className="utility-icon">🛒</span>
-              <span className="utility-label">
-                Basket <span className="basket-count">({totalItems})</span>
-              </span>
-            </button>
+            {isTradeMode ? (
+              <button 
+                className="uk-utility-item utility-basket trade-quote-btn"
+                onClick={() => setQuoteDrawerOpen(true)}
+              >
+                <span className="utility-icon">📋</span>
+                <span className="utility-label">
+                  Quote RFP <span className="basket-count">({totalItems})</span>
+                </span>
+              </button>
+            ) : (
+              <button 
+                className="uk-utility-item utility-basket"
+                onClick={() => setRetailDrawerOpen(true)}
+              >
+                <span className="utility-icon">🛒</span>
+                <span className="utility-label">
+                  Basket <span className="basket-count">({totalRetailItems})</span>
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </div>
