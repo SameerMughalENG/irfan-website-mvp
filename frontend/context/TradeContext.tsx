@@ -37,6 +37,8 @@ interface TradeContextType {
   totalRetailPrice: number;
   isRetailDrawerOpen: boolean;
   setRetailDrawerOpen: (open: boolean) => void;
+  isMiniBasketOpen: boolean;
+  setMiniBasketOpen: (open: boolean) => void;
 }
 
 const TradeContext = createContext<TradeContextType | undefined>(undefined);
@@ -48,6 +50,7 @@ export function TradeProvider({ children }: { children: React.ReactNode }) {
 
   const [retailItems, setRetailItems] = useState<RetailCartItem[]>([]);
   const [isRetailDrawerOpen, setRetailDrawerOpen] = useState<boolean>(false);
+  const [isMiniBasketOpen, setMiniBasketOpen] = useState<boolean>(false);
 
   useEffect(() => {
     try {
@@ -104,7 +107,7 @@ export function TradeProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...item, quantity: qty }];
     });
-    setRetailDrawerOpen(true);
+    setMiniBasketOpen(true);
   };
 
   const removeRetailItem = (id: string) => {
@@ -147,6 +150,8 @@ export function TradeProvider({ children }: { children: React.ReactNode }) {
         totalRetailPrice,
         isRetailDrawerOpen,
         setRetailDrawerOpen,
+        isMiniBasketOpen,
+        setMiniBasketOpen,
       }}
     >
       {children}

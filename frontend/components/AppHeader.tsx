@@ -157,7 +157,7 @@ export function AppHeader() {
             ) : (
               <button 
                 className="uk-utility-item utility-basket"
-                onClick={() => setRetailDrawerOpen(true)}
+                onClick={() => router.push('/basket')}
               >
                 <span className="utility-icon">🛒</span>
                 <span className="utility-label">

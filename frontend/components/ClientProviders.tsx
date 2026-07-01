@@ -8,6 +8,7 @@ import { AppHeader } from '@/components/AppHeader';
 import { QuoteDrawer } from '@/components/QuoteDrawer';
 import { RetailDrawer } from '@/components/RetailDrawer';
 import { TradeModal } from '@/components/TradeModal';
+import { MiniBasketPopup } from '@/components/MiniBasketPopup';
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -22,6 +23,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
             <QuoteDrawer />
             <RetailDrawer />
             <TradeModal />
+            <MiniBasketPopup />
           </div>
         </QuoteProvider>
       </SearchProvider>
