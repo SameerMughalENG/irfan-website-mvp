@@ -12,7 +12,7 @@ export function AppHeader() {
   const pathname = usePathname();
   const { totalItems, setDrawerOpen: setQuoteDrawerOpen } = useQuote();
   const { searchQuery, setSearchQuery, isFilterMenuOpen, setFilterMenuOpen, selectedCategory, setSelectedCategory } = useSearch();
-  const { isTradeMode, setTradeModalOpen, totalRetailItems, setRetailDrawerOpen, tradeAccount } = useTrade();
+  const { isTradeMode, setTradeMode, setTradeModalOpen, totalRetailItems, setRetailDrawerOpen, tradeAccount } = useTrade();
 
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -67,10 +67,14 @@ export function AppHeader() {
             <span>⚡ Free Next-Day UK Pallet Dispatch</span>
             <span className="strip-divider">|</span>
             <span className="mode-pill">
-              {isTradeMode ? '🟢 Logged in: Wholesale Trade Mode (Ex. VAT)' : '🛍️ Public Retail Mode (Inc. VAT)'}
+              {isTradeMode ? '🟢 Wholesale Trade Mode (Ex. VAT)' : '🛍️ Public Retail Mode (Inc. VAT)'}
             </span>
           </div>
           <div className="strip-right">
+            <button className="strip-link" onClick={() => setTradeMode(!isTradeMode)}>
+              {isTradeMode ? '🛍️ Switch to Retail Direct' : '🏢 Switch to Wholesale Trade'}
+            </button>
+            <span className="strip-divider">|</span>
             <button className="strip-link" onClick={() => alert("Help & Support Center: Live wholesale & consumer support available 8am-6pm GMT.")}>Help & Support</button>
             <span className="strip-divider">|</span>
             <button className="strip-link" onClick={() => setTradeModalOpen(true)}>Flexpay & Credit</button>
