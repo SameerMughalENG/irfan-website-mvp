@@ -98,7 +98,7 @@ export function AppHeader() {
               ☰
             </button>
 
-            <Link href="/products" className="brand-logo">
+            <Link href="/" className="brand-logo">
               <span className="brand-primary">SAMEER'S</span>
               <span className="brand-secondary">{isTradeMode ? 'WHOLESALE' : 'DIRECT'}</span>
               <span className="brand-badge">{isTradeMode ? 'B2B TRADE' : 'RETAIL'}</span>
